@@ -28,7 +28,8 @@ class MicropostsController < ApplicationController
 
     respond_to do |format|
       if @micropost.save
-        format.html { redirect_to @micropost, notice: 'Micropost was successfully created.' }
+        post_owner = "/users/#{@micropost.user_id}"
+        format.html { redirect_to (post_owner), notice: 'Micropost was successfully created.' }
         format.json { render :show, status: :created, location: @micropost }
       else
         format.html { render :new }
@@ -40,9 +41,13 @@ class MicropostsController < ApplicationController
   # PATCH/PUT /microposts/1
   # PATCH/PUT /microposts/1.json
   def update
+
+
     respond_to do |format|
+      
       if @micropost.update(micropost_params)
-        format.html { redirect_to @micropost, notice: 'Micropost was successfully updated.' }
+        post_owner = "/users/#{@micropost.user_id}"
+        format.html { redirect_to (post_owner) , notice: 'Micropost was successfully updated.' }
         format.json { render :show, status: :ok, location: @micropost }
       else
         format.html { render :edit }
@@ -55,8 +60,9 @@ class MicropostsController < ApplicationController
   # DELETE /microposts/1.json
   def destroy
     @micropost.destroy
+    post_owner = "/users/#{@micropost.user_id}"
     respond_to do |format|
-      format.html { redirect_to microposts_url, notice: 'Micropost was successfully destroyed.' }
+      format.html { redirect_to (post_owner), notice: 'Micropost was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
