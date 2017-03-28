@@ -24,10 +24,14 @@
     <%= f.datetime_select :due %>
   </div>
   <div class="field">
-    <%= f.label :user_id %><br>
-    <%= f.number_field :user_id %>
-  </div>
+<!--     <%= f.label :user_id %><br> -->
+    <%= f.hidden_field :user_id, :value => @params[:user_id].to_i%>
+  </div><br>
   <div class="actions">
-    <%= f.submit %>
+    <% if params[:id] %>
+      <%= f.submit "Update Todo" %>
+    <% else %>
+      <%= f.submit "Schedule Todo" %>
+    <% end %>
   </div>
 <% end %>
